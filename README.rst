@@ -20,7 +20,7 @@ Installation
 
 Install with pip::
 
-    $ pip install mock-server
+    $ pip install mock-server tornado==4.2
 
 
 Or install with easy_install::
