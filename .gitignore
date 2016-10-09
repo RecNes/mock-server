@@ -39,3 +39,6 @@ nosetests.xml
 
 *.log
 docs/_build
+
+# Dir
+api
