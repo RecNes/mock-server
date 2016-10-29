@@ -1,3 +1,4 @@
+/*
 var methodResponseEditor = ace.edit('method-response-editor');
 
 (function CreateResources() {
@@ -10,8 +11,10 @@ var methodResponseEditor = ace.edit('method-response-editor');
 
     $('#rpc-form').submit(function(event) {
 
+        console.log(editor.getText());
+
         if (!methodResponseEditor.getValue()) {
-            alert("Method response can't be empty.");
+            alert("ahah Method response can't be empty.");
             event.preventDefault();
             return;
         }
@@ -24,3 +27,4 @@ var methodResponseEditor = ace.edit('method-response-editor');
         $('#'+$(this).val()+'-form').removeClass('hidden');
     });
 })();
+*/

@@ -142,8 +142,8 @@ Response.prototype._handleFormatChange = function(target) {
 };
 
 Response.prototype._setResponseBodyMode = function(format) {
-    this._responseBodyEditor.getSession().setMode(
-        'ace/mode/' + Response.formatMode[format]);
+    // this._responseBodyEditor.getSession().setMode(
+        // 'ace/mode/' + Response.formatMode[format]);
 };
 
 Response.prototype._updateTabTitle = function() {
@@ -219,6 +219,27 @@ Response.prototype.build = function(supportedFormats) {
 
     this._container.appendChild(formatContainer);
 
+   // test json editor
+    var options = {
+        mode: 'tree',
+        modes: ['code', 'form', 'text', 'tree', 'view'], // allowed modes
+        onError: function (err) {
+            alert(err.toString());
+        },
+        onModeChange: function (newMode, oldMode) {
+            console.log('Mode switched from', oldMode, 'to', newMode);
+        }
+    };
+
+    var json = {
+        "array": [1, 2, 3],
+        "boolean": true,
+        "null": null,
+        "number": 123,
+        "object": {"a": "b", "c": "d"},
+        "string": "Hello World"
+    };
+
     // response body
     var responseBodyContainer = document.createElement('div');
     responseBodyContainer.className = 'control-group';
@@ -226,14 +247,15 @@ Response.prototype.build = function(supportedFormats) {
     label.setAttribute('for', 'response_body');
     label.innerHTML = 'Response body';
     var responseBodyEditorDiv = document.createElement('div');
-    this._responseBodyEditor = ace.edit(responseBodyEditorDiv);
+    // this._responseBodyEditor = ace.edit(responseBodyEditorDiv);
+    this._responseBodyEditor = new JSONEditor(responseBodyEditorDiv, options, json); 
     this._setResponseBodyMode(this._format.value);
 
     responseBodyContainer.appendChild(label);
     responseBodyContainer.appendChild(responseBodyEditorDiv);
 
     this._container.appendChild(responseBodyContainer);
-
+    
     // response headers
     var responseHeadersContainer = document.createElement('div');
     responseHeadersContainer.className = 'control-group';
@@ -248,6 +270,26 @@ Response.prototype.build = function(supportedFormats) {
 
     this._container.appendChild(responseHeadersContainer);
 
+     // Create a new editor
+
+    var jsonEditorContainer = document.createElement('div');
+    jsonEditorContainer.className = 'control-group';
+    label = document.createElement('label');
+    label.setAttribute('for', 'response_headers');
+    label.innerHTML = 'Json enditor';
+    var jsonEditorContainerDiv = document.createElement('div');
+
+    var editor = new JSONEditor(jsonEditorContainerDiv, options, json);
+
+    // this._responseHeadersEditor = ace.edit(jsonEditorContainerDiv);
+    // 响应头的编辑器对象
+    this._responseHeadersEditor = editor;
+
+    jsonEditorContainer.appendChild(label);
+    jsonEditorContainer.appendChild(jsonEditorContainerDiv);
+
+    this._container.appendChild(jsonEditorContainer);
+
     return this._container;
 };
 
@@ -255,8 +297,8 @@ Response.prototype.getData = function() {
     var data = {
         'status_code': this._statusCode.value,
         'format': this._format.value,
-        'body': this._responseBodyEditor.getValue(),
-        'headers': this._responseHeadersEditor.getValue()
+        'body': this._responseBodyEditor.getText(),
+        'headers': this._responseHeadersEditor.getText()
     };
 
     if (!data['body']) {
