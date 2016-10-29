@@ -91,6 +91,11 @@ body {
   width: 600px;
 }
 
+#jsoneditor {
+    height: 300px;
+    width: 600px;
+}
+
 #define-in-json {
   cursor: help;
   border-bottom: 1px dotted #999999;
