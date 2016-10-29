@@ -70,9 +70,8 @@ class="create-resource"
         <div id="wmd-preview" class="wmd-panel wmd-preview"></div>
 
         <!-- add json editor here -->
-        <div class="jsoneditor">
-        </div>
-
+        <div id="jsoneditor1" style="width: 400px; height: 400px;"></div>
+        
         <div class="control-group">
           <button type="button" class="btn" id="save-resource">Save</button>
         </div>
@@ -155,4 +154,27 @@ $("#category").typeahead({source: {%raw json_encode(list(handler.api_data.catego
 
 $("#rpc_category").typeahead({source: {%raw json_encode(list(handler.api_data.categories))%}})
 </script>
+
+<script>
+        // create the editor
+        var container = document.getElementById("jsoneditor1");
+        <!-- var container = $("#jsoneditor") -->
+        var options = {};
+        var editor = new JSONEditor(container, options);
+
+        // set json
+        var json = {
+            "Array": [1, 2, 3],
+            "Boolean": true,
+            "Null": null,
+            "Number": 123,
+            "Object": {"a": "b", "c": "d"},
+            "String": "Hello World"
+        };
+        editor.set(json);
+
+        // get json
+        var json = editor.get();
+</script>
+
 {% end %}
