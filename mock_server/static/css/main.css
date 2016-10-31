@@ -82,18 +82,13 @@ body {
 }
 
 #response-headers-editor {
-  height: 200px;
+  height: 800px;
   width: 100%;
 }
 
 #request-body-editor {
   height: 200px;
   width: 600px;
-}
-
-#jsoneditor {
-    height: 300px;
-    width: 600px;
 }
 
 #define-in-json {

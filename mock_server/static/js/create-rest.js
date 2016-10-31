@@ -245,8 +245,10 @@ Response.prototype.build = function(supportedFormats) {
     label.setAttribute('for', 'response_body');
     label.innerHTML = 'Response body';
     var responseBodyEditorDiv = document.createElement('div');
-    // this._responseBodyEditor = ace.edit(responseBodyEditorDiv);
-    this._responseBodyEditor = new JSONEditor(responseBodyEditorDiv, options, json); 
+    responseBodyEditorDiv.setAttribute("style", "width:100%;height:400px");
+    var bodyEditor = new JSONEditor(responseBodyEditorDiv,options, json);
+
+    this._responseBodyEditor = bodyEditor;//new JSONEditor(responseBodyEditorDiv, options, json); 
     this._setResponseBodyMode(this._format.value);
 
     responseBodyContainer.appendChild(label);
@@ -275,8 +277,10 @@ Response.prototype.build = function(supportedFormats) {
     responseHeadersEditor.className = 'control-group';
     label = document.createElement('label');
     label.setAttribute('for', 'response_headers');
-    label.innerHTML = 'Response headers';
+    // label.innerHTML = 'Response headers';
+    label.innerHTML = '......';
     var responseHeadersEditorDiv = document.createElement('div');
+    responseHeadersEditor.setAttribute("style", "height:0px")
 
     var editor = new JSONEditor(responseHeadersEditorDiv, options, null);
 
