@@ -47,4 +47,4 @@ api
 *.out
 
 # Local
-./bin/start-mock-server.sh
+bin/start-mock-server.sh
