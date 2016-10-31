@@ -224,7 +224,7 @@ Response.prototype.build = function(supportedFormats) {
    // test json editor
     var options = {
         mode: 'code',
-        modes: ['code', 'form', 'text', 'tree', 'view'], // allowed modes
+        modes: ['code', 'tree', 'form', 'text', 'view'], // allowed modes
         onError: function (err) {
             alert(err.toString());
         },
