@@ -232,12 +232,10 @@ Response.prototype.build = function(supportedFormats) {
     };
 
     var json = {
-        "array": [1, 2, 3],
-        "boolean": true,
-        "null": null,
-        "number": 123,
-        "object": {"a": "b", "c": "d"},
-        "string": "Hello World"
+        "code" : 200,
+        "data" : {
+
+        } 
     };
 
     // response body
