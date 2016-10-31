@@ -42,3 +42,9 @@ docs/_build
 
 # Dir
 api
+
+# Temp
+*.out
+
+# Local
+./bin/start-mock-server.sh
