@@ -155,8 +155,10 @@ Response.prototype._updateTabTitle = function() {
 Response.prototype.setDefaults = function(data) {
     this._statusCode.value = data['status_code'];
     this._format.value = data['format'];
-    this._responseBodyEditor.setValue(data['body']);
-    this._responseHeadersEditor.setValue(data['headers']);
+    // this._responseBodyEditor.setValue(data['body']);
+    // this._responseHeadersEditor.setValue(data['headers']);
+    this._responseBodyEditor.setText(data['body']);
+    this._responseHeadersEditor.setText(data['headers']);
 
     this._updateTabTitle();
 };
