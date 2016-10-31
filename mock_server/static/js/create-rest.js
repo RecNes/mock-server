@@ -255,6 +255,7 @@ Response.prototype.build = function(supportedFormats) {
     this._container.appendChild(responseBodyContainer);
     
     // response headers
+    /*
     var responseHeadersContainer = document.createElement('div');
     responseHeadersContainer.className = 'control-group';
     label = document.createElement('label');
@@ -267,26 +268,26 @@ Response.prototype.build = function(supportedFormats) {
     responseHeadersContainer.appendChild(responseHeadersEditorDiv);
 
     this._container.appendChild(responseHeadersContainer);
-
+    */
      // Create a new editor
 
-    var jsonEditorContainer = document.createElement('div');
-    jsonEditorContainer.className = 'control-group';
+    var responseHeadersEditor = document.createElement('div');
+    responseHeadersEditor.className = 'control-group';
     label = document.createElement('label');
     label.setAttribute('for', 'response_headers');
-    label.innerHTML = 'Json enditor';
-    var jsonEditorContainerDiv = document.createElement('div');
+    label.innerHTML = 'Response headers';
+    var responseHeadersEditorDiv = document.createElement('div');
 
-    var editor = new JSONEditor(jsonEditorContainerDiv, options, json);
+    var editor = new JSONEditor(responseHeadersEditorDiv, options, null);
 
-    // this._responseHeadersEditor = ace.edit(jsonEditorContainerDiv);
+    // this._responseHeadersEditor = ace.edit(responseHeadersEditorDiv);
     // 响应头的编辑器对象
     this._responseHeadersEditor = editor;
 
-    jsonEditorContainer.appendChild(label);
-    jsonEditorContainer.appendChild(jsonEditorContainerDiv);
+    responseHeadersEditor.appendChild(label);
+    responseHeadersEditor.appendChild(responseHeadersEditorDiv);
 
-    this._container.appendChild(jsonEditorContainer);
+    this._container.appendChild(responseHeadersEditor);
 
     return this._container;
 };
