@@ -280,7 +280,7 @@ Response.prototype.build = function(supportedFormats) {
     label = document.createElement('label');
     label.setAttribute('for', 'response_headers');
     // label.innerHTML = 'Response headers';
-    label.innerHTML = '......';
+    label.innerHTML = '';
     var responseHeadersEditorDiv = document.createElement('div');
     responseHeadersEditor.setAttribute("style", "height:0px")
 
@@ -293,7 +293,7 @@ Response.prototype.build = function(supportedFormats) {
     responseHeadersEditor.appendChild(label);
     responseHeadersEditor.appendChild(responseHeadersEditorDiv);
 
-    this._container.appendChild(responseHeadersEditor);
+//    this._container.appendChild(responseHeadersEditor);
 
     return this._container;
 };
