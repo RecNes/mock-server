@@ -12,7 +12,7 @@ from .data import SUPPORTED_FORMATS, SUPPORTED_MIMES, DEFAULT_FORMAT
 from .data import SUPPORTED_METHODS
 from .tornado_flash_message_mixin import FlashMessageMixin
 from .tornado_http_auth_basic_mixin import HttpAuthBasicMixin
-from .model import ResourceMethod, RPCMethod, gencryptsalt
+from .model import ResourceMethod, RPCMethod, gencryptsalt, BaseMethod
 
 from .methodslisting import ResourcesLoader, RPCMethodsLoader
 from .validators import validate_url
@@ -23,19 +23,20 @@ from . import xmlrpc
 
 try:
     from . import jsonrpc
+
     jsonrpc_available = True
 except ImportError:
     jsonrpc_available = False
 
 try:
     from . import fastrpcapi
+
     fastrpc_available = True
 except ImportError:
     fastrpc_available = False
 
 
 class BaseHandler(tornado.web.RequestHandler):
-
     def get_current_user(self):
         if self.api_data.password:
             return self.get_secure_cookie("user")
@@ -77,7 +78,7 @@ class BaseHandler(tornado.web.RequestHandler):
     def log_request_name(self):
         return os.path.join(
             self.api_dir, "access-%s.log" %
-            datetime.datetime.now().strftime("%Y-%m-%d"))
+                          datetime.datetime.now().strftime("%Y-%m-%d"))
 
     def _write_response(self, response):
         self.set_headers(response.headers)
@@ -87,7 +88,6 @@ class BaseHandler(tornado.web.RequestHandler):
 
 
 class MainHandler(BaseHandler, HttpAuthBasicMixin):
-
     def check_auth(self, http_username, http_password):
         username = self.api_data.http_username
         password = self.api_data.http_password
@@ -231,8 +231,8 @@ class MainHandler(BaseHandler, HttpAuthBasicMixin):
     def _get_format(self, format):
         format = format[1:] if format[0] == "." else format
 
-        if "Accept" in self.request.headers and\
-                self.request.headers["Accept"] in SUPPORTED_MIMES:
+        if "Accept" in self.request.headers and \
+                        self.request.headers["Accept"] in SUPPORTED_MIMES:
             format = SUPPORTED_MIMES[self.request.headers["Accept"]]
 
         return format
@@ -249,8 +249,8 @@ class RPCHandler(BaseHandler):
         self.set_header("Access-Control-Allow-Origin", "*")
 
         if "Content-Length" not in self.request.headers and \
-                self.request.headers.get(
-                    "Transfer-Encoding", None) == "chunked":
+                        self.request.headers.get(
+                            "Transfer-Encoding", None) == "chunked":
             self.chunks = ""
             self._stream = self.request.connection.stream
             self._stream.read_until("\r\n", self._on_chunk_length)
@@ -408,7 +408,6 @@ class ListResourcesHandler(BaseHandler, FlashMessageMixin):
 
 
 class CreateResourceMethodHandler(BaseHandler, FlashMessageMixin):
-
     @tornado.web.authenticated
     def get(self, flash_messages=None):
         url_path = self.get_argument("url_path", "")
@@ -423,6 +422,8 @@ class CreateResourceMethodHandler(BaseHandler, FlashMessageMixin):
             category = ""
         else:
             category = self.api_data.get_category(method_file.id)
+        # delete file when edit file
+        method_file.delete()
 
         self.render(
             "create_resource.html",
@@ -448,12 +449,12 @@ class CreateResourceMethodHandler(BaseHandler, FlashMessageMixin):
             method_file.add_response(
                 response["status_code"], response["format"],
                 response["body"], response["headers"])
+
             method_file.save()
 
             # add resource to category
             self.api_data.save_category(
                 method_file.id, data["category"])
-
         self.set_flash_message(
             "success",
             "Resource '%s' has been successfully created." % data["url_path"])
@@ -462,7 +463,6 @@ class CreateResourceMethodHandler(BaseHandler, FlashMessageMixin):
 
 
 class CreateRPCMethodHandler(BaseHandler, FlashMessageMixin):
-
     @tornado.web.authenticated
     def get(self, flash_messages=None):
         method_name = self.get_argument("method_name", "")
@@ -509,7 +509,6 @@ class CreateRPCMethodHandler(BaseHandler, FlashMessageMixin):
 
 
 class ResourceMethodHandler(BaseHandler, FlashMessageMixin):
-
     @tornado.web.authenticated
     def get(self, resource):
         _method = self.get_argument("_method", "get")
@@ -557,7 +556,6 @@ class ResourceMethodHandler(BaseHandler, FlashMessageMixin):
 
 
 class RPCMethodHandler(BaseHandler, FlashMessageMixin):
-
     @tornado.web.authenticated
     def get(self, method_name):
         _method = self.get_argument("_method", "get")
@@ -628,7 +626,6 @@ class LogoutHandler(BaseHandler):
 
 
 class SettingsHandler(BaseHandler, FlashMessageMixin):
-
     @tornado.web.authenticated
     def get(self):
         self.render("settings.html",
@@ -677,7 +674,6 @@ class SettingsHandler(BaseHandler, FlashMessageMixin):
 
 
 class TodoHandler(BaseHandler):
-
     @tornado.web.authenticated
     def post(self):
         # check xsrf cookie

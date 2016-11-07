@@ -208,7 +208,6 @@ class BaseMethod(object):
         if os.path.exists(path):
             os.unlink(path)
 
-
 class ResourceMethod(BaseMethod):
 
     def __init__(self, api_dir, url_path, method):
