@@ -35,7 +35,7 @@ class="create-resource"
 
         <div class="control-group">
             <label for="url_path">Url path</label>
-            <input type="text" name="url_path" id="url_path" value="{% if protocol == 'rest' %}{{method_file.url_path}}{% end %}" class="input-xlarge" required placeholder="Example: user/jonh">
+            <input type="text" name="url_path" id="url_path" value="{% if protocol == 'rest' %}{{method_file.url_path}}{% end %}" class="input-xlarge" required placeholder="Example: /xhr/cart/getCarts.json">
         </div>
 
         <div class="control-group">
@@ -49,7 +49,16 @@ class="create-resource"
 
         <div class="control-group">
             <label for="category">Category</label>
-            <input type="text" name="category" id="category" autocomplete="off" value="{{category}}" class="input-xlarge" placeholder="Example: Users">
+            <input type="text" name="category" id="category" autocomplete="off" value="{{category}}" class="input-xlarge" placeholder="Example: MainPage">
+        </div>
+
+        <div class="control-group">
+            <label for="switch">Switch</label>
+            <select name="switch" id="switch">
+            {% for supported_switch in handler.SUPPORTED_SWITCH %}
+            <option{% if protocol == 'rest' %} selected="selected"{% end %}>{{supported_switch}}</option>
+            {% end %}
+        </select>
         </div>
 
         <div class="tabbable" id="responses">
