@@ -33,5 +33,3 @@ SUPPORTED_MIMES = _supported_mimes(SUPPORTED_FORMATS)
 
 SUPPORTED_METHODS = ("GET", "HEAD", "POST", "DELETE", "PATCH",
                      "PUT", "OPTIONS")
-
-SUPPORTED_SWITCH = (True, False)

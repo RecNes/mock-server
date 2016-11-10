@@ -14,7 +14,7 @@ from string import ascii_letters, digits
 from random import choice
 from tornado.escape import utf8
 from .util import read_file, ExtendedJSONEncoder
-from .data import SUPPORTED_METHODS, SUPPORTED_SWITCH
+from .data import SUPPORTED_METHODS
 
 
 def gencryptsalt():
