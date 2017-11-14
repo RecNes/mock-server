@@ -117,7 +117,8 @@ def resolve_request(provider, method, url_path,
 
 def default_response(method, url_path, status_code, format):
     content = \
-        '<head><script type="text/javascript">window.location="http://localhost:6368/__manage";' \
+        '<head><script type="text/javascript">' \
+        'window.location="http://localhost:6368/__manage";' \
         '</script></head>Api does\'t exists, <a href="/__manage/create?url_path=%s&'\
         'method=%s&status_code=%d&format=%s">create resource method</a>' %\
         (url_path, method, status_code, format)

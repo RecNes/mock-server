@@ -16,6 +16,12 @@
   <body{% block bodyattrs %}{% end %}>
     {% block header %}
     {% end %}
+
+{% if current_user %}
+{% else %}
+  <script type="text/javascript">window.location.href="http://localhost:6368/__manage/login";</script>
+{% end %}
+
     <div class="navbar navbar-inverse navbar-static-top">
       <div class="navbar-inner">
         <div class="container-fluid">
