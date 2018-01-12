@@ -1,30 +1,18 @@
 Mock server
 ===========
 
-Simple mock server for REST and XML-RPC API
-
-It can mock GET, POST, PUT, PATCH, DELETE and some more rarely used HTTP methods.
-
-
-Release Notes
-====
-
-1.0 替换ace editor为json editor
+Simple mock server for REST and XML-RPC API. It can mock GET, POST, PUT, PATCH, DELETE and some more rarely used HTTP methods.
+The original version (https://github.com/tomashanacek/mock-server) is nice but lacks support for Python 3.6.
 
 
 Installation
 ============
 
-Install with pip::
+DO NOT install with pip, as the pip version is not up to date! First, install dependencies::
 
-    $ pip install mock-server tornado==4.2
-
-
-Or install with easy_install::
-
-    $ easy_install mock-server
-
-And after run::
+    $ pip install -r requirements.txt
+    
+Include the repo code and run::
 
     $ mock-server --dir=/path/to/api
 
@@ -84,13 +72,3 @@ response headers format: ``%METHOD%_H_%STATUS%.%FORMAT%``
             DELETE_404.xml   # response content for DELETE /user.xml?__statusCode=404
             POST_200.json    # response content for POST /user
             POST_H_200.json  # headers for POST /user
-
-
-Bug report
-==========
-
-If you have any trouble, report bug at GitHub Issue https://github.com/tomashanacek/mock-server/issues
-
-Contributors
-============
-William Zhang
