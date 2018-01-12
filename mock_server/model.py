@@ -129,7 +129,7 @@ class ApiData(object):
         def compare_category_name(x, y):
             if y[0] == "__default":
                 return -1
-            return cmp(x[0].lower(), y[0].lower())
+            return (x[0].lower() > y[0].lower()) - (x[0].lower() < y[0].lower())
 
         return (OrderedDict(sorted(list(categories.items()),
                                    key=functools.cmp_to_key(compare_category_name))),
