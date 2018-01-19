@@ -42,6 +42,7 @@ docs/_build
 
 # Dir
 api
+venv
 
 # Temp
 *.out
